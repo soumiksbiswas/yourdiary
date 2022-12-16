@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {useNavigate} from 'react-router-dom';
+import noteContext from "../context/notes/noteContext";
 
 const SignUp = (props) => {
   const [credentials, setCredentials] = useState({ name: "", email: "", password: "", cpassword: "" });
 
   let navigate = useNavigate();
+  
+  const context = useContext(noteContext);
+  const {getUser} = context;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,6 +35,7 @@ const SignUp = (props) => {
     if (json.success) {
       //  Save the auth token and redirect
       localStorage.setItem("token", json.authToken);
+      getUser();
       navigate("/");
       props.showAlert("Account created successfully!","success");
     } else {

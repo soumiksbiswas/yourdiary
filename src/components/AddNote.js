@@ -10,6 +10,8 @@ const AddNote = (props) => {
     setNote({ ...note, [e.target.name]: e.target.value }); // ... is called the spread operator
   };
 
+  const name = (localStorage.getItem('name'));
+
   const handleSubmit=(e)=>{
     e.preventDefault(); // to prevent the page from reloading when clicked on Submit
     addNote(note.title, note.description, note.tag);
@@ -19,8 +21,8 @@ const AddNote = (props) => {
 
   return (
     <div>
-      <div className="container my-3">
-        <h2>Welcome to your diary! </h2>
+      <div className="container my-4">
+        <h2>{"Hello "+name+"! Welcome to your diary!"} </h2>
         <form>
           <div className="mb-3">
             <label htmlFor="title" className="form-label">

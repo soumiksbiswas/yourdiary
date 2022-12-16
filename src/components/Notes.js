@@ -16,7 +16,7 @@ const Notes = (props) => {
       getNotes();
     }
       else{
-        navigate("/signin")
+        navigate("/signin");
       }
   }, []);
 
@@ -43,7 +43,7 @@ const Notes = (props) => {
 
   const handleSubmit = (e) => {
     editNote(note.id, note.etitle, note.edescription, note.etag);
-    refClose.current.click();
+    refClose.current.click(); // if we click on the handleSubmit button, the refClose reference button will also be clicked automatically
     props.showAlert("Note updated successfully!", "success");
   };
 

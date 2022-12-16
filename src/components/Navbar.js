@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 // Why are we using useLocation() hook?
 // Ans) useLocation() gives the current location which we are at. Now, we will notice that in the navbar, 'Home' is always highlighted (active), even if we go to 'About'. This is because of 'nav-link active'. We need to change active to About when we visit About.
 
-export default function Navbar() {
+export default function Navbar(props) {
   let location = useLocation(); // useLocation() hook
   // useEffect(() => {
   //   // import useEffect() from React instead of using React.useEffect()
@@ -15,6 +15,9 @@ export default function Navbar() {
 
   const handleLogout=()=>{
     localStorage.removeItem('token');
+    localStorage.removeItem('name');
+    localStorage.removeItem('email');
+    props.showAlert("Signed out successfully!","success");
     navigate("/signin");
   }
   
@@ -60,10 +63,19 @@ export default function Navbar() {
                 </Link>
               </li>
             </ul>
-            {!localStorage.getItem('token') ?<form className="d-flex" role="search">
-            <Link className="btn btn-primary mx-1" to="/signin" role="button">Sign in</Link>
-            <Link className="btn btn-primary mx-1" to="/signup" role="button">Sign up</Link>
-            </form>: <button onClick={handleLogout} className="btn btn-primary">Sign out</button>}
+
+            {!localStorage.getItem('token') &&
+              <form className="d-flex" role="search">
+              <Link className="btn btn-primary mx-1" to="/signin" role="button">Sign in</Link>
+              <Link className="btn btn-primary mx-1" to="/signup" role="button">Sign up</Link>
+              </form>
+            }
+            { localStorage.getItem('token') &&
+              <div>
+                <span className="text-light mx-2">{localStorage.getItem('email')}</span>
+                <button onClick={handleLogout} className="btn btn-primary">Sign out</button>
+              </div>
+            }
           </div>
         </div>
       </nav>

@@ -1,9 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import {Link} from 'react-router-dom';
+import noteContext from "../context/notes/noteContext";
+
 
 const SignIn = (props) => {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
+  
+  const context = useContext(noteContext);
+  const {getUser} = context;
 
   let navigate = useNavigate();
 
@@ -26,6 +31,7 @@ const SignIn = (props) => {
     //  Save the auth token and redirect
     if (json.success) {
       localStorage.setItem("token", json.authToken);
+      getUser();
       navigate("/");
       props.showAlert("Logged in successfully!", "success");
     } else {

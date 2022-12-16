@@ -1,7 +1,7 @@
 const connectToMongo = require('./db.js');
 const express = require('express');
-const cors = require('cors')
-const app = express()
+const cors = require('cors');
+const app = express();
 
 app.use(cors()); // NOTE: cors should be intalled in backend, this is needed to access a route from the backend server.
 // Otherwise, error: Access to "https://localhost:5000/" from origin "https://localhost:3000" has been blocked by CORS policy
